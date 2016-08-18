@@ -21,3 +21,16 @@ body {
 .search-results_item {
     margin: 8px 0 0;
 }
+
+.results {
+  overflow: hidden;
+}
+
+.results > div {
+  width: 50%;
+  float: left;
+  min-height: 100px;
+}
+
+.account-info {background: #cccc99;}
+.search-results_item-active {background: #ddffdd;}
