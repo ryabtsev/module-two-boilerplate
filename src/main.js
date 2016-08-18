@@ -1,5 +1,5 @@
-// const loader = require('./modules/loader.js')
 // import loadUsers from './modules/loader'
+// const loader = require('./modules/loader.js')
 
 require('./main.css')
 

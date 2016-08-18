@@ -3,7 +3,6 @@ var appPath = path.join(__dirname, 'src')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-  context: appPath,
   entry: {
     bundle: 'main.js',
   },
@@ -12,10 +11,10 @@ module.exports = {
     port: 8080,
   },
   // debug: true,
-  // devtool: 'cheap-module-inline-source-map',
+  devtool: 'cheap-module-inline-source-map',
   output: {
     path: './compiled',
-    filename: 'bundle.js'
+    filename: 'bundle_[hash].js'
   },
   resolve: {
     root: appPath,
@@ -25,15 +24,12 @@ module.exports = {
       {
         test: /\.css$/,
         loaders: ['style', 'css'],
-        include: appPath,
       },
       {
         test: /\.(gif|png|jpg|jpeg)$/,
         loader: 'file',
-        include: appPath,
       },
     ],
-
   },
   plugins: [
     new HtmlWebpackPlugin({
