@@ -1,4 +1,7 @@
 // const loader = require('./modules/loader.js')
+// import loadUsers from './modules/loader'
+
+require('./main.css')
 
 const API_PROXY_URL = 'http://188.166.73.133/wg-api'
 const GAME = 'wot'
