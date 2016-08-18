@@ -1,31 +1,93 @@
-const API_PROXY_URL = 'http://188.166.73.133/wg-api'
+// const loader = require('./modules/loader.js')
 
+const API_PROXY_URL = 'http://188.166.73.133/wg-api'
 const GAME = 'wot'
 
-/*
-full API description you can find here:
-https://ru.wargaming.net/developers/api_reference
-
-you don't have to pass application_id query param.
-It will be passed automatically via proxy server
-*/
-
+// -- module: loader
 function loadUsers(username) {
   const url = `${API_PROXY_URL}/${GAME}/account/list/?search=${username}`
-  // create request to the url and return a promise
+  return fetch(url)
+    .then(resp => resp.json())
+    .then(jsonData => jsonData.data)
 }
 
-function renderSpinner(domNode) {
-  // clean all content of passed node and then render element with `spinner` classname
+function loadSingleUser(id) {
+  const url = `${API_PROXY_URL}/${GAME}/account/info/?account_id=${id}`
+  return fetch(url)
+    .then(resp => resp.json())
+    .then(jsonData => jsonData.data[id])
 }
 
-function renderSearchResult(accounts) {
-  // render result to the node with class name `search-results`
-  // Note! it's already exist. See index.html for more info.
-  // Each search result item should be rendered
-  // inside node with `search-results_item` class name.
+// -- module: renderHelpers
+function renderSpinner(targetNode) {
+  const domNode = document.createElement('div')
+  domNode.setAttribute('class', 'spinner')
+  targetNode.innerHTML = ''
+  targetNode.appendChild(domNode)
+}
+
+function highlightResultsItem(item) {
+  const items = document.querySelectorAll('.js-result-item')
+  Array.from(items).forEach((elem) => {elem.style.fontWeight = 'normal'})
+  item.style.fontWeight = 'bold'
+}
+
+// -- module: templater
+function templateResultItem({account_id, nickname}) {
+  const tmpl = `
+  <div class="profile_data js-result-item" data-id=${account_id}>
+    ${nickname}
+  </div>
+  `
+  return tmpl
+}
+
+function templateUserDetails(userData) {
+  const tmpl = `
+  <div class="foo">
+    nickname: ${userData['nickname']}
+      <br />
+    created_at: ${userData['created_at']}
+  </div>
+  `
+  return tmpl
+}
+
+// -- module: renderer
+function renderSearchResult(html) {
+  const resultHolder = document.querySelector('.search-results')
+  resultHolder.innerHTML = html
+  for (item of document.getElementsByClassName('js-result-item')) {
+      item.addEventListener('click', (event) => {
+        highlightResultsItem(event.target)
+        renderSpinner(document.querySelector('.item-details'));
+        loadSingleUser(event.target.dataset.id)
+          .then(user => {
+            renderUser(templateUserDetails(user))
+          })
+      })
+  }
+}
+
+function renderUser(html) {
+  const userInfoHolder = document.querySelector('.item-details')
+  userInfoHolder.innerHTML = html
+}
+
+// -- module: main
+function handleError(e) {
+  console.log(e)
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  // add search button click handler here
+  const username = document.getElementById('username').value
+  const searchButton = document.getElementById('search')
+  const searchResults = document.getElementsByClassName('search-results')[0]
+
+  searchButton.addEventListener('click', () => {
+    renderSpinner(searchResults);
+    loadUsers(username)
+      .then(users => renderSearchResult(users.map(templateResultItem).join('')))
+      .catch(e => handleError(e))
+  })
 })
