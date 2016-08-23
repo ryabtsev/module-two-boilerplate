@@ -10,7 +10,7 @@ function handleError(e) {
 
 function initSearchResultClick() {
   for (let item of document.getElementsByClassName('js-result-item')) {
-      item.addEventListener('click', (event) => {
+      item.addEventListener('click', (event) => { // jshint ignore:line
         highlightResultsItem(event.target)
         renderSpinner(document.querySelector('.item-details'));
         loadSingleUser(event.target.dataset.id)

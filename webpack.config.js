@@ -20,6 +20,12 @@ module.exports = {
     root: appPath,
   },
   module: {
+    preLoaders: [
+      { loader: 'jshint-loader',
+        test: /\.js$/,
+        exclude: /node_modules/
+      }
+    ],
     loaders: [
       {
         test: /\.js$/,
@@ -34,6 +40,20 @@ module.exports = {
         loader: 'file',
       },
     ],
+  },
+  jshint: {
+    // any jshint option http://www.jshint.com/docs/options/
+    // i. e.
+    camelcase: true,
+
+    // jshint errors are displayed by default as warnings
+    // set emitErrors to true to display them as errors
+    emitErrors: true,
+
+    // jshint to not interrupt the compilation
+    // if you want any file with jshint errors to fail
+    // set failOnHint to true
+    failOnHint: false,
   },
   plugins: [
     new HtmlWebpackPlugin({

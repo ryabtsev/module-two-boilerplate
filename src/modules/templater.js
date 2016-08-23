@@ -1,6 +1,6 @@
-export function templateResultItem({account_id, nickname}) {
+export function templateResultItem({accountId, nickname}) {
   let tmpl = `
-  <div class="profile_data js-result-item" data-id=${account_id}>
+  <div class="profile_data js-result-item" data-id=${accountId}>
     ${nickname}
   </div>
   `
@@ -8,11 +8,12 @@ export function templateResultItem({account_id, nickname}) {
 }
 
 export function templateUserDetails(userData) {
+  const createdAt = userData.created_at // jshint ignore:line
   const tmpl = `
   <div class="foo">
-    nickname: ${userData['nickname']}
+    nickname: ${userData.nickname}
       <br />
-    created_at: ${userData['created_at']}
+    created_at: ${createdAt}
   </div>
   `
   return tmpl
