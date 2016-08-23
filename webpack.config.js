@@ -10,7 +10,7 @@ module.exports = {
     host: 'localhost',
     port: 8080,
   },
-  // debug: true,
+  debug: true,
   devtool: 'cheap-module-inline-source-map',
   output: {
     path: './compiled',
@@ -21,6 +21,10 @@ module.exports = {
   },
   module: {
     loaders: [
+      {
+        test: /\.js$/,
+        loaders: ['babel-loader']
+      },
       {
         test: /\.css$/,
         loaders: ['style', 'css'],
