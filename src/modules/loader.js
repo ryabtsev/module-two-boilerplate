@@ -1,8 +1,6 @@
+const API_PROXY_URL = 'http://188.166.73.133/wg-api'
+const GAME = 'wot'
 
-let API_PROXY_URL = 'http://188.166.73.133/wg-api'
-let GAME = 'wot'
-
-// -- module: loader
 export function loadUsers(username) {
   let url = `${API_PROXY_URL}/${GAME}/account/list/?search=${username}`
   return fetch(url)

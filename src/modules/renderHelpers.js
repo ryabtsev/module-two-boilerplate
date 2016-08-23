@@ -1,4 +1,3 @@
-// -- module: renderHelpers
 export function renderSpinner(targetNode) {
   let domNode = document.createElement('div')
   domNode.setAttribute('class', 'spinner')

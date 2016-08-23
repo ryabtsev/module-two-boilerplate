@@ -1,4 +1,3 @@
-// -- module: templater
 export function templateResultItem({account_id, nickname}) {
   let tmpl = `
   <div class="profile_data js-result-item" data-id=${account_id}>
