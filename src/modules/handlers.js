@@ -28,6 +28,10 @@ export function initSearchButtonClick() {
   const searchButton = document.getElementById('search');
   const searchResults = document.getElementsByClassName('search-results')[0];
 
+  if (username == '') {
+    return;
+  }
+
   searchButton.addEventListener('click', () => {
     renderSpinner(searchResults);
     loadUsers(username)

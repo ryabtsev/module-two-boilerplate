@@ -2,9 +2,6 @@ body {
   font-family: verdana;
   background-color: #fafafa;
 }
-#search {
-  padding-bottom: 30px;
-}
 
 .search_field {
   width: 220px;
@@ -20,6 +17,15 @@ body {
 
 .search-results_item {
     margin: 8px 0 0;
+}
+
+.profile_data {
+    border-bottom: solid 1px grey;
+    text-decoration: none;
+}
+
+.profile_data:hover {
+    border-bottom-color: green;
 }
 
 td {
